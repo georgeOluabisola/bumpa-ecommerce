@@ -217,7 +217,6 @@ Then open your browser to `http://localhost:8000/dashboard`
 1. Open browser to `http://localhost:8000`
 2. Click "Login" or go to "/login"
 3. Fill in the details:
-    - Name: Bumpa
     - Email: bumpa@gmail.com
     - Password: 09061577006
 4. Click "Login"
@@ -227,10 +226,11 @@ Then open your browser to `http://localhost:8000/dashboard`
 1. Open browser to `http://localhost:8000`
 2. Click "Register" or go to `/register`
 3. Fill in registration form:
+    - Name: Bumpa
     - Email: bumpa@gmail.com
     - Password: 09061577006
 
-4. Click "Register"
+5. Click "Register"
 
 #### Step 2: Access Dashboard
 
