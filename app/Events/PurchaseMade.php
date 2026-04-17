@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Purchase;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,12 +16,19 @@ class PurchaseMade
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
+    public $purchase;
+
+
     /**
      * Create a new event instance.
      */
-    public function __construct()
+
+    public function __construct(User $user, Purchase $purchase)
     {
-        //
+        $this->user = $user;
+
+        $this->purchase = $purchase;
     }
 
     /**

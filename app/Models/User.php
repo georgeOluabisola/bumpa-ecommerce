@@ -3,7 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Achievement;
+use App\Models\AchievementUser;
+use App\Models\Badge;
+use App\Models\BadgeUser;
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -44,5 +50,31 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function achievements(): BelongsToMany
+    {
+        return $this->belongsToMany(Achievement::class)
+            ->using(AchievementUser::class)
+            ->withTimestamps();
+    }
+
+    public function badges(): BelongsToMany
+    {
+        return $this->belongsToMany(Badge::class)
+            ->using(BadgeUser::class)
+            ->withPivot('is_active')
+            ->withTimestamps();
+    }
+
+    // Accessor function
+    public function getCurrentBadgeAttribute()
+    {
+        return $this->badges()->wherePivot('is_active', true)->first();
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 }

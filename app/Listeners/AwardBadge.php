@@ -2,10 +2,13 @@
 
 namespace App\Listeners;
 
+
+use App\Events\AchievementUnlocked;
+use App\Services\BadgeService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CheckAchievements
+class AwardBadge
 {
     /**
      * Create the event listener.
@@ -18,8 +21,8 @@ class CheckAchievements
     /**
      * Handle the event.
      */
-    public function handle(object $event): void
+    public function handle(AchievementUnlocked $event): void
     {
-        //
+        app(BadgeService::class)->check($event->user); // i called a service using dependency injection
     }
 }

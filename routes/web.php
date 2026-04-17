@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\UserAchievementController;
+use App\Http\Controllers\UserPurchaseController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -9,9 +13,23 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+
+        $user = Auth::user();
+        return Inertia::render('dashboard', [
+            'user' => $user
+        ]);
     })->name('dashboard');
+
+    Route::apiResource('users.achievements', UserAchievementController::class)->only([
+        'index',
+    ]);
+
+    Route::apiResource('users.purchases', UserPurchaseController::class)->only([
+        'store',
+    ]);
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+
+
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

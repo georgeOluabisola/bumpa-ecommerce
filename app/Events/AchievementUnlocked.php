@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Achievement;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,12 +16,16 @@ class AchievementUnlocked
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
+    public $achievement;
+
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(User $user, Achievement $achievement)
     {
-        //
+        $this->user = $user;
+        $this->achievement = $achievement;
     }
 
     /**
